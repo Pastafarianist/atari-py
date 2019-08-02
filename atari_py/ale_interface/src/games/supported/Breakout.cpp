@@ -52,6 +52,14 @@ void BreakoutSettings::step(const System& system) {
     int y = readRam(&system, 76);
     reward_t score = 1 * (x & 0x000F) + 10 * ((x & 0x00F0) >> 4) + 100 * (y & 0x000F);
     m_reward = score - m_score;
+
+    if (score == 864) {
+        // reset score to 432
+        writeRam(&system, 77, 2 | (3 << 4));
+        writeRam(&system, 76, (y & 0x00F0) | 4);
+        score = 432;
+    }
+
     m_score = score;
 
     // update terminal status

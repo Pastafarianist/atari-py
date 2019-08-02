@@ -29,6 +29,11 @@ int readRam(const System* system, int offset) {
     return sys->peek((offset & 0x7F) + 0x80);
 }
 
+void writeRam(const System* system, int offset, uint8_t value) {
+  System* sys = const_cast<System*>(system);
+  sys->poke((offset & 0x7F) + 0x80, value);
+}
+
 /* extracts a decimal value from a byte */
 int getDecimalScore(int index, const System* system) {
     
